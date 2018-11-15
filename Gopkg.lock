@@ -43,6 +43,14 @@
   version = "v1.12.6"
 
 [[projects]]
+  branch = "master"
+  digest = "1:c0bec5f9b98d0bc872ff5e834fac186b807b656683bd29cb82fb207a1513fabb"
+  name = "github.com/beorn7/perks"
+  packages = ["quantile"]
+  pruneopts = ""
+  revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
+
+[[projects]]
   digest = "1:56c130d885a4aacae1dd9c7b71cfe39912c7ebc1ff7d2b46083c8812996dc43b"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -95,7 +103,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:27854310d59099f8dcc61dd8af4a69f0a3597f001154b2fb4d1c41baf2e31ec1"
+  digest = "1:fd681619adeb0216bf8aa126dece533cc108c733f245748d73fc350d034ae5fa"
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -105,7 +113,7 @@
     "ptypes/timestamp",
   ]
   pruneopts = ""
-  revision = "130e6b02ab059e7b717a096f397c5b60111cae74"
+  revision = "951a149f90371fb8858c6c979d03bb2583611052"
 
 [[projects]]
   branch = "master"
@@ -137,6 +145,14 @@
   pruneopts = ""
   revision = "ffa96de2479e10ecd06aca8069bf9c55a86701b5"
   version = "v1.4.0"
+
+[[projects]]
+  digest = "1:63722a4b1e1717be7b98fc686e0b30d5e7f734b9e93d7dee86293b6deab7ea28"
+  name = "github.com/matttproud/golang_protobuf_extensions"
+  packages = ["pbutil"]
+  pruneopts = ""
+  revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
+  version = "v1.0.1"
 
 [[projects]]
   branch = "master"
@@ -189,6 +205,52 @@
   pruneopts = ""
   revision = "f051bb7f1d1aaf1b5a665d74fb6b0217712c69f7"
   version = "v0.1.1"
+
+[[projects]]
+  digest = "1:8b2082f564fe20dbb43a621ee0d57ae2777656ab14111d100d3d92d1b5b958b9"
+  name = "github.com/prometheus/client_golang"
+  packages = [
+    "prometheus",
+    "prometheus/internal",
+    "prometheus/promauto",
+    "prometheus/promhttp",
+  ]
+  pruneopts = ""
+  revision = "abad2d1bd44235a26707c172eab6bca5bf2dbad3"
+  version = "v0.9.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:185cf55b1f44a1bf243558901c3f06efa5c64ba62cfdcbb1bf7bbe8c3fb68561"
+  name = "github.com/prometheus/client_model"
+  packages = ["go"]
+  pruneopts = ""
+  revision = "5c3871d89910bfb32f5fcab2aa4b9ec68e65a99f"
+
+[[projects]]
+  branch = "master"
+  digest = "1:d522feb599bd02a4b76d3ad20b91668c87028a6b5fd19a1bed994e26f6cd3c6d"
+  name = "github.com/prometheus/common"
+  packages = [
+    "expfmt",
+    "internal/bitbucket.org/ww/goautoneg",
+    "model",
+  ]
+  pruneopts = ""
+  revision = "41aa239b4cce3c56ab88fc366ae8b0a6423fa239"
+
+[[projects]]
+  branch = "master"
+  digest = "1:1f62ed2c173c42c1edad2e94e127318ea11b0d28c62590c82a8d2d3cde189afe"
+  name = "github.com/prometheus/procfs"
+  packages = [
+    ".",
+    "internal/util",
+    "nfs",
+    "xfs",
+  ]
+  pruneopts = ""
+  revision = "185b4288413d2a0dd0806f78c90dde719829e5ae"
 
 [[projects]]
   branch = "master"
@@ -461,6 +523,9 @@
     "github.com/mmcloughlin/geohash",
     "github.com/nats-io/go-nats",
     "github.com/peterh/liner",
+    "github.com/prometheus/client_golang/prometheus",
+    "github.com/prometheus/client_golang/prometheus/promauto",
+    "github.com/prometheus/client_golang/prometheus/promhttp",
     "github.com/streadway/amqp",
     "github.com/tidwall/boxtree/d2",
     "github.com/tidwall/btree",

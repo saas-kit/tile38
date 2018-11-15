@@ -81,6 +81,7 @@ Advanced Options:
   --protected-mode yes/no : protected mode (default: yes)
   --threads num           : number of network threads (default: num cores)
   --evio yes/no           : use the evio package (default: no)
+  --metrics-port port     : run the metrics endpoint (default: none)
 
 Developer Options:
   --dev                             : enable developer mode
@@ -227,6 +228,19 @@ Developer Options:
 				}
 			}
 			fmt.Fprintf(os.Stderr, "evio must be 'yes' or 'no'\n")
+			os.Exit(1)
+		case "--metrics-port", "-metrics-port":
+			i++
+			if i < len(os.Args) {
+				p, err := strconv.Atoi(os.Args[i])
+				if err != nil || p < 1 || p > 25565 {
+					fmt.Fprintf(os.Stderr, "metrics port must be a valid port number\n")
+					os.Exit(1)
+				}
+				core.MetricsPort = p
+				continue
+			}
+			fmt.Fprintf(os.Stderr, "metrics-port must be a valid port number\n")
 			os.Exit(1)
 		}
 		nargs = append(nargs, os.Args[i])

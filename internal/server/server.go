@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"net/http"
 	"net/url"
 	"os"
 	"path"
@@ -22,6 +23,9 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/tidwall/buntdb"
 	"github.com/tidwall/evio"
 	"github.com/tidwall/geojson"
@@ -270,11 +274,46 @@ func Serve(host string, port int, dir string, http bool) error {
 		server.followc.add(1) // this will force any follow communication to die
 	}()
 
+	// Start the metrics endpoint if specified
+	if core.MetricsPort != 0 {
+		go server.serveMetrics(core.MetricsPort)
+	}
+
 	// Start the network server
 	if core.Evio {
 		return server.evioServe()
 	}
 	return server.netServe()
+}
+
+// serveMetrics creates several prometheus metrics and binds their output to
+// the /metrics endpoint on port 8080
+func (s *Server) serveMetrics(port int) {
+	// Bind all metrics
+	promauto.NewGaugeFunc(prometheus.GaugeOpts{
+		Name: "follower_count_gauge",
+		Help: "The total number of follower nodes",
+	}, func() float64 { return float64(s.followc.get()) })
+
+	promauto.NewGaugeFunc(prometheus.GaugeOpts{
+		Name: "total_connections_gauge",
+		Help: "The total number of connected clients",
+	}, func() float64 { return float64(s.statsTotalConns.get()) })
+
+	promauto.NewCounterFunc(prometheus.CounterOpts{
+		Name: "total_commands_counter",
+		Help: "The total number of commands received",
+	}, func() float64 { return float64(s.statsTotalCommands.get()) })
+
+	promauto.NewCounterFunc(prometheus.CounterOpts{
+		Name: "expired_counter",
+		Help: "The total number of keys expired",
+	}, func() float64 { return float64(s.statsExpired.get()) })
+
+	// Serve the prometheus output on /metrics
+	http.Handle("/metrics", promhttp.Handler())
+	log.Infof("Starting metrics server on port %v", port)
+	http.ListenAndServe(":"+strconv.Itoa(port), nil)
 }
 
 func (server *Server) isProtected() bool {

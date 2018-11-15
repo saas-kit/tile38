@@ -23,3 +23,6 @@ var NumThreads int
 
 // Evio set the networking to use the evio package.
 var Evio = false
+
+// MetricsPort is the port in which to bind an optional metrics endpoint to.
+var MetricsPort int
